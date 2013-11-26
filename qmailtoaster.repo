@@ -1,0 +1,54 @@
+# qmailtoaster.repo
+#
+# The QmailToaster repo supports multiple distros, as well as universal
+# rpms containing scripts that can be used on any platform or arch.
+#
+# Packages for specific distros are found by their respective repo file.
+#
+# The 'current' repos are considered production worthy, aka stable.
+# The 'testing' repos are considered beta, and should not be used in production.
+# The 'devel' repos are considered alpha, and should be used only by developers.
+#
+# Packages in the current repos have all been promoted from testing,
+# and signed with the qmailtoaster key.
+# If you have installed a package from the testing repo, there is no purpose
+# in reinstalling it after it's been promoted into current.
+#
+# Packages in testing have been newly built (they're not development copies),
+# and are signed with the qmailtoaster key.
+#
+# Packages in devel may or may not be signed by the developer.
+#
+# If the mirrorlist= does not work for you, as a fall back you can try the 
+# remarked out baseurl= line instead.
+#
+
+# current (stable) packages
+
+[current-nodist]
+name=QmailToaster current - nodist (universal)
+mirrorlist=http://mirrors.qmailtoaster.com/current/nodist/mirror.list
+#baseurl=http://mirrors.qmailtoaster.com/current/nodist
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-qmailtoaster
+
+# packages being tested, not for production hosts
+
+[testing-nodist]
+name=QmailToaster testing - nodist (universal)
+mirrorlist=http://mirrors.qmailtoaster.com/testing/nodist/mirror.list
+#baseurl=http://mirrors.qmailtoaster.com/testing/nodist
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-qmailtoaster
+
+# packages being developed, for developer use only
+
+[devel-nodist]
+name=QmailToaster devel - nodist (universal)
+mirrorlist=http://mirrors.qmailtoaster.com/devel/nodist/mirror.list
+#baseurl=http://mirrors.qmailtoaster.com/devel/nodist
+enabled=0
+gpgcheck=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-shubes

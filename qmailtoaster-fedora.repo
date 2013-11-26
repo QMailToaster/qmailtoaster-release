@@ -1,0 +1,33 @@
+# qmailtoaster-fedora.repo
+#
+# Fedora is highly discouraged to be used in a production environment.
+# It is not supported. However it may be used for development,
+# as it contains new features that will eventually be used in CentOS.
+#
+
+# current (stable) packages
+
+[qmailtoaster-current]
+name=QmailToaster current - Fedora $releasever
+mirrorlist=http://mirrors.qmailtoaster.com/current/fedora/mirror.list
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-qmailtoaster
+
+# packages being tested, not for production hosts
+
+[qmailtoaster-testing]
+name=QmailToaster testing - Fedora $releasever
+mirrorlist=http://mirrors.qmailtoaster.com/testing/fedora/mirror.list
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-qmailtoaster
+
+# packages being developed, for developer use only
+
+[qmailtoaster-devel]
+name=QmailToaster development - Fedora $releasever
+mirrorlist=http://mirrors.qmailtoaster.com/devel/fedora/mirror.list
+enabled=0
+gpgcheck=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-shubes

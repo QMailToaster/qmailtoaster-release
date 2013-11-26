@@ -1,0 +1,266 @@
+#!/bin/bash
+#
+# Copyright (C) 2006-2013 Eric Shubert <eric@datamatters.us>
+# Last modified: November 22, 2013
+#
+# Figure out what Distro/Release/Arch this machine is and set environment
+# variables accordingly for QMailToaster scripts.
+#
+# It can also be run from the command line, so users can see
+# before trying an install if their system is supported,
+# or to assist with manual installs or support.
+#
+# Note: when setting environment variables for a calling script, this script
+#       needs to be sourced when executed to retain variable values, e.g.
+#       . qmt-whatami
+#
+# Use -s option to suppress std out messages, e.g.: . qmt-whatami -s
+#
+#    return status values:
+#    0 - machine is supported
+#    4 - machine is recognized, not supported
+#    5 - machine is not recognized
+#    8 - invalid usage (parameter not recognized)
+#
+
+###################################################################
+# check /etc/*release files for whatever information might exist
+#
+# scyld needs to come before redhat, since they include a redhat-release file
+# mandriva and mandrake need to be before redhat too, same story
+#
+a2_check_releases(){
+
+release_info=$(cat /etc/scyld-release 2>/dev/null)
+if [ -z "$release_info" ]; then
+  release_info=$(cat /etc/mandriva-release 2>/dev/null)
+  if [ ! -z "$release_info" ]; then
+    b20_read_release_info
+    b21_mandriva    
+  else
+    release_info=$(cat /etc/mandrake-release 2>/dev/null)
+    if [ ! -z "$release_info" ]; then
+      b20_read_release_info
+      b22_mandrake    
+    else
+      release_info=$(cat /etc/fedora-release 2>/dev/null)
+      if [ ! -z "$release_info" ]; then
+        b20_read_release_info
+        b23_fedora
+      else
+        release_info=$(cat /etc/redhat-release 2>/dev/null)
+        if [ ! -z "$release_info" ]; then
+          b20_read_release_info
+          b24_redhat
+        else
+          release_info=$(cat /etc/SuSE-release 2>/dev/null)
+          if [ ! -z "$release_info" ]; then
+            b20_read_release_info
+            b25_suse    
+          else
+            release_info=$(cat /etc/trustix-release 2>/dev/null)
+            if [ -z "$release_info" ]; then
+              release_info=$(cat /etc/yellowdog-release 2>/dev/null)
+              if [ -z "$release_info" ]; then
+                release_info=$(cat /etc/turbolinux-release 2>/dev/null)
+                if [  -z "$release_info" ]; then
+                  release_info=$(cat /etc/slackware-release 2>/dev/null)
+                  if [ -z "$release_info" ]; then
+                    release_info=$(cat /etc/gentoo-release 2>/dev/null)
+                    if [ -z "$release_info" ]; then
+                      release_info=$(cat /etc/sun-release 2>/dev/null)
+                      if [ -z "$release_info" ]; then
+                        release_info=$(cat /etc/UnitedLinux-release 2>/dev/null)
+                        if [ -z "$release_info" ]; then
+                          release_info=$(cat /etc/release 2>/dev/null)
+                          if [ -z "$release_info" ]; then
+                            release_info=$(cat /etc/debian_release 2>/dev/null)
+                            if [ -z "$release_info" ]; then
+                              release_info=$(cat /etc/lsb-release 2>/dev/null)
+                              if [ -z "$release_info" ]; then
+                                return 1
+                              fi
+                            fi
+                          fi
+                        fi
+                      fi
+                    fi
+                  fi
+                fi
+              fi
+            fi
+          fi
+        fi
+      fi
+    fi
+  fi
+fi
+return 0
+}
+
+###################################################################
+## split up release information into separate words
+#
+b20_read_release_info(){
+
+read word1 word2 word3 word4 word5 word6 word7 word8 word9 <<!
+$release_info
+!
+}
+
+###################################################################
+## check mandriva
+#
+b21_mandriva(){
+
+if [ "$word1" == "Mandriva" ]; then
+  REAL_DIST=$word1
+  DISTRO=$word1
+  OSVER=$word4
+  relnum=${word4%.*}
+fi
+}
+
+###################################################################
+## check mandrake
+#
+b22_mandrake(){
+
+if [ "$word1" == "Mandrake" ]; then
+  REAL_DIST=$word1
+  DISTRO=$word1
+  OSVER=$word4
+  relnum=${word4}
+fi
+}
+
+###################################################################
+## check fedora
+#
+b23_fedora(){
+
+if [ "$word1" == "Fedora" ]; then
+  if [ "$word2" == "release" ]; then
+    REAL_DIST=$word1
+    DISTRO=$word1
+    OSVER=$word3
+    relnum=${word3%.*}
+  elif [ "$word2" == "Core" ]; then
+    REAL_DIST="$word1 $word2"
+    DISTRO=$word1
+    OSVER=$word4
+    relnum=${word4%.*}
+  fi
+fi
+}
+
+###################################################################
+## check centos, red hat
+#
+b24_redhat(){
+
+if [ "$word1" == "CentOS" ]; then
+  REAL_DIST=$word1
+  DISTRO=$word1
+  OSVER=$word3
+  relnum=${word3%.*}
+  case $relnum in
+    5 | 6 )
+      supported=y
+      ;;
+  esac
+elif [ "$word1" == "Red" ] \
+      && [ "$word2" == "Hat" ] \
+      && [ "$word3" == "Enterprise" ]; then
+  REAL_DIST="$word1 $word2 $word3"
+  DISTRO="CentOS"
+  OSVER=$word7
+  relnum=${word7%.*}
+  case $relnum in
+    5 | 6 )
+      supported=y
+      ;;
+  esac
+elif [ "$word1" == "Red" ] \
+      && [ "$word2" == "Hat" ]; then
+  REAL_DIST="$word1 $word2"
+  DISTRO="CentOS"
+  OSVER=$word5
+  relnum=${word5%.*}
+fi
+}
+
+###################################################################
+## check SuSE
+#
+b25_suse(){
+
+if [ "$word1" == "SUSE" ]; then
+  REAL_DIST=$word1
+  DISTRO=$word1
+  OSVER=$word3
+  relnum=${word3}
+fi
+}
+
+###################################################################
+## begin main processing
+#
+
+myname=qmt-whatami
+myver=v1.0
+
+# if we're being sourced, we want to return instead of exiting
+if [ "${0##*/}" == $myname ]; then
+  retexit=exit
+else
+  retexit=return
+fi
+
+unset silent
+if [ ! -z "$1" ]; then
+  case $1 in
+    -s )
+      silent=$1
+      ;;
+    * )
+      echo "$myname usage: $myname [-s]"
+      $retexit 8
+      ;;
+  esac
+else
+  echo "$myname $myver $(date)"
+fi
+
+export QTARCH=$(uname -m)
+export QTKERN=$(uname -r)
+unset supported
+
+a2_check_releases
+
+if [ $? != "0" ]; then
+  if [ ! "$silent" ]; then
+    echo "Your Distro is not recognized, let alone supported. Sorry."
+  fi
+  $retexit 5
+fi
+
+if [ ! "$supported" ]; then
+  if [ ! "$silent" ]; then
+    echo "$release_info is not supported. Sorry."
+  fi
+  $retexit 4
+else
+  export REAL_DIST
+  export DISTRO
+  export OSVER
+  if [ ! "$silent" ]; then
+    echo "This machine's OS is supported"
+    echo "REAL_DIST=$REAL_DIST"
+    echo "DISTRO=$DISTRO"
+    echo "OSVER=$OSVER"
+    echo "QTARCH=$QTARCH"
+    echo "QTKERN=$QTKERN"
+  fi
+  $retexit 0
+fi

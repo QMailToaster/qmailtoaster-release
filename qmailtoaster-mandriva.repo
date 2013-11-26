@@ -1,0 +1,36 @@
+# qmailtoaster-mandriva.repo
+#
+# Mandriva is not presently supported, and there are no binary rpms available.
+# If you would like to implement QMT on Mandriva, please contact the users list.
+#
+# The current repos are considered production worthy, aka stable.
+# The testing repos are considered beta, and should not be used in production.
+# The devel repos are considered alpha, and should be used only by developers.
+#
+
+# current (stable) packages
+
+[qmailtoaster-current]
+name=QmailToaster current - Mandriva $releasever
+mirrorlist=http://mirrors.qmailtoaster.com/current/mandriva/mirror.list
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-qmailtoaster
+
+# packages being tested, not for production hosts
+
+[qmailtoaster-testing]
+name=QmailToaster testing - Mandriva $releasever
+mirrorlist=http://mirrors.qmailtoaster.com/testing/mandriva/mirror.list
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-qmailtoaster
+
+# packages being developed, for developer use only
+
+[qmailtoaster-devel]
+name=QmailToaster development - Mandriva $releasever
+mirrorlist=http://mirrors.qmailtoaster.com/devel/mandriva/mirror.list
+enabled=0
+gpgcheck=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-shubes

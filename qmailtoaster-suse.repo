@@ -1,0 +1,36 @@
+# qmailtoaster-suse.repo
+#
+# SuSE is not presently supported, and there are no binary rpms available.
+# If you would like to implement QMT on SuSE, please contact the users list.
+#
+# The current repos are considered production worthy, aka stable.
+# The testing repos are considered beta, and should not be used in production.
+# The devel repos are considered alpha, and should be used only by developers.
+#
+
+# current (stable) packages
+
+[qmailtoaster-current]
+name=QmailToaster current - SuSE $releasever
+mirrorlist=http://mirrors.qmailtoaster.com/current/suse/mirror.list
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-qmailtoaster
+
+# packages being tested, not for production hosts
+
+[qmailtoaster-testing]
+name=QmailToaster testing - Suse $releasever
+mirrorlist=http://mirrors.qmailtoaster.com/testing/suse/mirror.list
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-qmailtoaster
+
+# packages being developed, for developer use only
+
+[qmailtoaster-devel]
+name=QmailToaster development - SuSE $releasever
+mirrorlist=http://mirrors.qmailtoaster.com/devel/suse/mirror.list
+enabled=0
+gpgcheck=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-shubes
