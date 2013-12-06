@@ -135,6 +135,11 @@ rpm -q gpg-pubkey-4728f6b5-52900fa3 &>/dev/null || \
 rpm -q gpg-pubkey-93c761fd-528fd585 &>/dev/null || \
       rpm --import %{CONF_DIR}/RPM_GPG_KEY-shubes || :
 
+co_parm="check_obsoletes=1"
+pcfile=/etc/yum/pluginconf.d/priorities.conf
+grep "$co_parm" $pcfile >/dev/null 2>&1 || \
+      echo "$co_parm" >> $pcfile
+
 #-------------------------------------------------------------------------------
 %changelog
 #-------------------------------------------------------------------------------
