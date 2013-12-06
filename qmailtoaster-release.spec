@@ -5,7 +5,7 @@
 Name:      qmailtoaster-release
 Summary:   QMailToaster RPM repository configuration
 Version:   2.0
-Release:   0%{?dist}
+Release:   1%{?dist}
 License:   GPL
 Group:     System Environment/Base
 URL:       http://qmailtoaster.com/
