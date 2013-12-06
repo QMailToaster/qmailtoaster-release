@@ -10,15 +10,16 @@ License:   GPL
 Group:     System Environment/Base
 URL:       http://qmailtoaster.com/
 
-Source0:   https://raw.github.com/QMailToaster/pkgs/master/%{name}/qmt-whatami
-Source1:   https://raw.github.com/QMailToaster/pkgs/master/%{name}/qmt-install-repoforge
-Source2:   https://raw.github.com/QMailToaster/pkgs/master/%{name}/qmailtoaster.repo
-Source3:   https://raw.github.com/QMailToaster/pkgs/master/%{name}/qmailtoaster-centos.repo
-Source4:   https://raw.github.com/QMailToaster/pkgs/master/%{name}/qmailtoaster-fedora.repo
-Source5:   https://raw.github.com/QMailToaster/pkgs/master/%{name}/qmailtoaster-mandriva.repo
-Source6:   https://raw.github.com/QMailToaster/pkgs/master/%{name}/qmailtoaster-suse.repo
-Source7:   https://raw.github.com/QMailToaster/pkgs/master/%{name}/RPM_GPG_KEY-qmailtoaster
-Source8:   https://raw.github.com/QMailToaster/pkgs/master/%{name}/RPM_GPG_KEY-shubes
+Requires:  yum-priorities
+
+Source1:   qmt-install-repoforge
+Source2:   qmailtoaster.repo
+Source3:   qmailtoaster-centos.repo
+Source4:   qmailtoaster-fedora.repo
+Source5:   qmailtoaster-mandriva.repo
+Source6:   qmailtoaster-suse.repo
+Source7:   RPM_GPG_KEY-qmailtoaster
+Source8:   RPM_GPG_KEY-shubes
 
 BuildArch: noarch
 BuildRoot: %{_topdir}/BUILDROOT/%{name}-%{version}-%{release}.%{_arch}
@@ -52,17 +53,26 @@ to aid with installation and support.
 %{__mkdir_p} %{buildroot}%{BIN_LINK}
 %{__mkdir_p} %{buildroot}%{REPO_LINK}
 
-%{__install} -p %{SOURCE0} %{buildroot}%{BIN_DIR}/qmt-whatami
-%{__install} -p %{SOURCE1} %{buildroot}%{BIN_DIR}/qmt-install-repoforge
+%{__install} -p %{_sourcedir}/qmt-whatami \
+                              %{buildroot}%{BIN_DIR}/qmt-whatami
+%{__install} -p %{_sourcedir}/qmt-install-rpmforge \
+                              %{buildroot}%{BIN_DIR}/qmt-install-repoforge
 
-%{__install} -p %{SOURCE2} %{buildroot}%{CONF_DIR}/qmailtoaster.repo
-%{__install} -p %{SOURCE3} %{buildroot}%{CONF_DIR}/qmailtoaster-centos.repo
-%{__install} -p %{SOURCE4} %{buildroot}%{CONF_DIR}/qmailtoaster-fedora.repo
-%{__install} -p %{SOURCE5} %{buildroot}%{CONF_DIR}/qmailtoaster-mandriva.repo
-%{__install} -p %{SOURCE6} %{buildroot}%{CONF_DIR}/qmailtoaster-suse.repo
+%{__install} -p %{_sourcedir}/qmailtoaster.repo \
+                              %{buildroot}%{CONF_DIR}/qmailtoaster.repo
+%{__install} -p %{_sourcedir}/qmailtoaster-centos.repo \
+                              %{buildroot}%{CONF_DIR}/qmailtoaster-centos.repo
+%{__install} -p %{_sourcedir}/qmailtoaster-fedora.repo \
+                              %{buildroot}%{CONF_DIR}/qmailtoaster-fedora.repo
+%{__install} -p %{_sourcedir}/qmailtoaster-mandriva.repo \
+                              %{buildroot}%{CONF_DIR}/qmailtoaster-mandriva.repo
+%{__install} -p %{_sourcedir}/qmailtoaster-suse.repo \
+                              %{buildroot}%{CONF_DIR}/qmailtoaster-suse.repo
 
-%{__install} -p %{SOURCE7} %{buildroot}%{CONF_DIR}/RPM_GPG_KEY-qmailtoaster
-%{__install} -p %{SOURCE8} %{buildroot}%{CONF_DIR}/RPM_GPG_KEY-shubes
+%{__install} -p %{_sourcedir}/RPM_GPG_KEY-qmailtoaster \
+                              %{buildroot}%{CONF_DIR}/RPM_GPG_KEY-qmailtoaster
+%{__install} -p %{_sourcedir}/RPM_GPG_KEY-shubes \
+                              %{buildroot}%{CONF_DIR}/RPM_GPG_KEY-shubes
 
 %{__ln_s} ../..%{BIN_DIR}/qmt-whatami            %{buildroot}%{BIN_LINK}/.
 %{__ln_s} ../..%{BIN_DIR}/qmt-install-repoforge  %{buildroot}%{BIN_LINK}/.
