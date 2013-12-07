@@ -55,7 +55,7 @@ to aid with installation and support.
 
 %{__install} -p %{_sourcedir}/qmt-whatami \
                               %{buildroot}%{BIN_DIR}/qmt-whatami
-%{__install} -p %{_sourcedir}/qmt-install-rpmforge \
+%{__install} -p %{_sourcedir}/qmt-install-repoforge \
                               %{buildroot}%{BIN_DIR}/qmt-install-repoforge
 
 %{__install} -p %{_sourcedir}/qmailtoaster.repo \
@@ -88,7 +88,7 @@ to aid with installation and support.
 #-------------------------------------------------------------------------------
 %defattr(0644, root, root, 0755)
 
-# shubes - this is from rpmforge-release - don't know what %pubkey does
+# shubes - this is from repoforge-release - don't know what %pubkey does
 # %pubkey RPM_GPG_KEY-qmailtoaster
 # %pubkey RPM_GPG_KEY-shubes
 
