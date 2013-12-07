@@ -10,6 +10,7 @@ License:   GPL
 Group:     System Environment/Base
 URL:       http://qmailtoaster.com/
 
+Requires:  wget
 Requires:  yum-priorities
 
 Source1:   qmt-install-repoforge
