@@ -9,11 +9,11 @@ Release:   1%{?dist}
 License:   GPL
 Group:     System Environment/Base
 URL:       http://qmailtoaster.com/
+Packager:  Eric Shubert <qmt-build@datamatters.us>
 
-Requires:  wget
 Requires:  yum-priorities
 
-Source1:   qmt-install-repoforge
+Source1:   qt-whatami
 Source2:   qmailtoaster.repo
 Source3:   qmailtoaster-centos.repo
 Source4:   qmailtoaster-fedora.repo
@@ -54,10 +54,8 @@ to aid with installation and support.
 %{__mkdir_p} %{buildroot}%{BIN_LINK}
 %{__mkdir_p} %{buildroot}%{REPO_LINK}
 
-%{__install} -p %{_sourcedir}/qmt-whatami \
-                              %{buildroot}%{BIN_DIR}/qmt-whatami
-%{__install} -p %{_sourcedir}/qmt-install-repoforge \
-                              %{buildroot}%{BIN_DIR}/qmt-install-repoforge
+%{__install} -p %{_sourcedir}/qt-whatami \
+                              %{buildroot}%{BIN_DIR}/qt-whatami
 
 %{__install} -p %{_sourcedir}/qmailtoaster.repo \
                               %{buildroot}%{CONF_DIR}/qmailtoaster.repo
@@ -75,9 +73,8 @@ to aid with installation and support.
 %{__install} -p %{_sourcedir}/RPM_GPG_KEY-shubes \
                               %{buildroot}%{CONF_DIR}/RPM_GPG_KEY-shubes
 
-%{__ln_s} ../..%{BIN_DIR}/qmt-whatami            %{buildroot}%{BIN_LINK}/.
-%{__ln_s} ../..%{BIN_DIR}/qmt-install-repoforge  %{buildroot}%{BIN_LINK}/.
-%{__ln_s} ../..%{CONF_DIR}/qmailtoaster.repo     %{buildroot}%{REPO_LINK}/.
+%{__ln_s} ../..%{BIN_DIR}/qt-whatami          %{buildroot}%{BIN_LINK}/.
+%{__ln_s} ../..%{CONF_DIR}/qmailtoaster.repo  %{buildroot}%{REPO_LINK}/.
 
 #-------------------------------------------------------------------------------
 %clean
@@ -109,11 +106,10 @@ to aid with installation and support.
 #-------------------------------------------------------------------------------
 %post
 #-------------------------------------------------------------------------------
-. qmt-whatami -s
+. qt-whatami -s
 case $DISTRO in
   CentOS )
     %{__ln_s} ../..%{CONF_DIR}/qmailtoaster-centos.repo   %{REPO_LINK}/.
-    qmt-install-repoforge
     ;;
   Fedora )
     %{__ln_s} ../..%{CONF_DIR}/qmailtoaster-fedora.repo   %{REPO_LINK}/.
@@ -126,7 +122,7 @@ case $DISTRO in
     ;;
   * )
     echo "DISTRO not determined:"
-    qmt-whatami
+    qt-whatami
     echo "ERROR: Please contact support"
     ;;
 esac
@@ -144,5 +140,7 @@ grep "$co_parm" $pcfile >/dev/null 2>&1 || \
 #-------------------------------------------------------------------------------
 %changelog
 #-------------------------------------------------------------------------------
+* Sat Dec 07 2013 Eric Shubert <eric@datamatters.us> - 2.0-1.qt
+* removed qt-install-repoforge from %post, as that won't work (recursive rpm)
 * Sat Nov 23 2013 Eric Shubert <eric@datamatters.us> - 2.0-0.qt
 - Initial package.
