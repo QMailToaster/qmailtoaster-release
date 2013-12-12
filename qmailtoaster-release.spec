@@ -75,6 +75,7 @@ to aid with installation and support.
 
 %{__ln_s} ../..%{BIN_DIR}/qt-whatami          %{buildroot}%{BIN_LINK}/.
 %{__ln_s} ../..%{CONF_DIR}/qmailtoaster.repo  %{buildroot}%{REPO_LINK}/.
+touch   %{buildroot)}%(REPO_LINK}/qmailtoaster-dist.repo
 
 #-------------------------------------------------------------------------------
 %clean
@@ -101,7 +102,8 @@ to aid with installation and support.
 
 # symlinks
 %{BIN_LINK}/*
-%{REPO_LINK}/*
+%{REPO_LINK}/qmailtoaster.repo
+%ghost %{REPO_LINK}/qmailtoaster-dist.repo
 
 #-------------------------------------------------------------------------------
 %post
@@ -109,16 +111,20 @@ to aid with installation and support.
 . qt-whatami -s
 case $DISTRO in
   CentOS )
-    %{__ln_s} ../..%{CONF_DIR}/qmailtoaster-centos.repo   %{REPO_LINK}/.
+    %{__ln_s} ../..%{CONF_DIR}/qmailtoaster-centos.repo \
+           %{REPO_LINK}/qmailtoaster-dist.repo
     ;;
   Fedora )
-    %{__ln_s} ../..%{CONF_DIR}/qmailtoaster-fedora.repo   %{REPO_LINK}/.
+    %{__ln_s} ../..%{CONF_DIR}/qmailtoaster-fedora.repo \
+           %{REPO_LINK}/qmailtoaster-dist.repo
     ;;
   Mandriva )
-    %{__ln_s} ../..%{CONF_DIR}/qmailtoaster-mandriva.repo %{REPO_LINK}/.
+    %{__ln_s} ../..%{CONF_DIR}/qmailtoaster-mandriva.repo \
+           %{REPO_LINK}/qmailtoaster-dist.repo
     ;;
   SuSE )
-    %{__ln_s} ../..%{CONF_DIR}/qmailtoaster-suse.repo     %{REPO_LINK}/.
+    %{__ln_s} ../..%{CONF_DIR}/qmailtoaster-suse.repo \
+           %{REPO_LINK}/qmailtoaster-dist.repo
     ;;
   * )
     echo "DISTRO not determined:"
@@ -142,5 +148,6 @@ grep "$co_parm" $pcfile >/dev/null 2>&1 || \
 #-------------------------------------------------------------------------------
 * Sat Dec 07 2013 Eric Shubert <eric@datamatters.us> - 2.0-1.qt
 * removed qt-install-repoforge from %post, as that won't work (recursive rpm)
+- changed symlink name and made it a ghost
 * Sat Nov 23 2013 Eric Shubert <eric@datamatters.us> - 2.0-0.qt
 - Initial package.
