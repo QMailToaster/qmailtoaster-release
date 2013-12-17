@@ -9,7 +9,7 @@
 
 [qmailtoaster-current]
 name=QmailToaster current - Fedora $releasever
-mirrorlist=http://mirrors.qmailtoaster.com/current/fedora/mirror.list
+mirrorlist=http://mirrors.qmailtoaster.com/current/Fedora/mirror.list
 enabled=1
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-qmailtoaster
@@ -19,7 +19,7 @@ priority=7
 
 [qmailtoaster-testing]
 name=QmailToaster testing - Fedora $releasever
-mirrorlist=http://mirrors.qmailtoaster.com/testing/fedora/mirror.list
+mirrorlist=http://mirrors.qmailtoaster.com/testing/Fedora/mirror.list
 enabled=0
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-qmailtoaster
@@ -29,7 +29,7 @@ priority=7
 
 [qmailtoaster-devel]
 name=QmailToaster development - Fedora $releasever
-mirrorlist=http://mirrors.qmailtoaster.com/devel/fedora/mirror.list
+mirrorlist=http://mirrors.qmailtoaster.com/devel/Fedora/mirror.list
 enabled=0
 gpgcheck=0
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-shubes
