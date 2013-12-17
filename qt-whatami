@@ -207,7 +207,7 @@ fi
 ## begin main processing
 #
 
-myname=qmt-whatami
+myname=qt-whatami
 myver=v1.0
 
 # if we're being sourced, we want to return instead of exiting
