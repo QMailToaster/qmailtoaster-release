@@ -75,7 +75,7 @@ to aid with installation and support.
 
 %{__ln_s} ../..%{BIN_DIR}/qt-whatami          %{buildroot}%{BIN_LINK}/.
 %{__ln_s} ../..%{CONF_DIR}/qmailtoaster.repo  %{buildroot}%{REPO_LINK}/.
-touch   %{buildroot)}%{REPO_LINK}/qmailtoaster-dist.repo
+touch   %{buildroot}%{REPO_LINK}/qmailtoaster-dist.repo
 
 #-------------------------------------------------------------------------------
 %clean
