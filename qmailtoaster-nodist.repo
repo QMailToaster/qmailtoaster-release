@@ -1,6 +1,6 @@
-# qmailtoaster.repo
+# qmailtoaster-nodist.repo
 #
-# The QmailToaster repo supports multiple distros, as well as universal
+# The QmailToaster nodist repo supports multiple distros, as well as universal
 # rpms containing scripts that can be used on any platform or arch.
 #
 # Packages for specific distros are found by their respective repo file.
@@ -25,7 +25,7 @@
 
 # current (stable) packages
 
-[current-nodist]
+[qmailtoaster-current-nodist]
 name=QmailToaster current - nodist (universal)
 mirrorlist=http://mirrors.qmailtoaster.com/current/nodist/mirror.list
 #baseurl=http://mirrors.qmailtoaster.com/current/nodist
@@ -36,7 +36,7 @@ priority=7
 
 # packages being tested, not for production hosts
 
-[testing-nodist]
+[qmailtoaster-testing-nodist]
 name=QmailToaster testing - nodist (universal)
 mirrorlist=http://mirrors.qmailtoaster.com/testing/nodist/mirror.list
 #baseurl=http://mirrors.qmailtoaster.com/testing/nodist
@@ -47,7 +47,7 @@ priority=7
 
 # packages being developed, for developer use only
 
-[devel-nodist]
+[qmailtoaster-devel-nodist]
 name=QmailToaster devel - nodist (universal)
 mirrorlist=http://mirrors.qmailtoaster.com/devel/nodist/mirror.list
 #baseurl=http://mirrors.qmailtoaster.com/devel/nodist

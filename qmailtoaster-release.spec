@@ -14,7 +14,7 @@ Packager:  Eric Shubert <qmt-build@datamatters.us>
 Requires:  yum-priorities
 
 Source1:   qt-whatami
-Source2:   qmailtoaster.repo
+Source2:   qmailtoaster-nodist.repo
 Source3:   qmailtoaster-centos.repo
 Source4:   qmailtoaster-fedora.repo
 Source5:   qmailtoaster-mandriva.repo
@@ -54,27 +54,21 @@ to aid with installation and support.
 %{__mkdir_p} %{buildroot}%{BIN_LINK}
 %{__mkdir_p} %{buildroot}%{REPO_LINK}
 
-%{__install} -p %{_sourcedir}/qt-whatami \
-                              %{buildroot}%{BIN_DIR}/qt-whatami
+%{__install} -p %{SOURCE1} %{buildroot}%{BIN_DIR}/qt-whatami
 
-%{__install} -p %{_sourcedir}/qmailtoaster.repo \
-                              %{buildroot}%{CONF_DIR}/qmailtoaster.repo
-%{__install} -p %{_sourcedir}/qmailtoaster-centos.repo \
-                              %{buildroot}%{CONF_DIR}/qmailtoaster-centos.repo
-%{__install} -p %{_sourcedir}/qmailtoaster-fedora.repo \
-                              %{buildroot}%{CONF_DIR}/qmailtoaster-fedora.repo
-%{__install} -p %{_sourcedir}/qmailtoaster-mandriva.repo \
-                              %{buildroot}%{CONF_DIR}/qmailtoaster-mandriva.repo
-%{__install} -p %{_sourcedir}/qmailtoaster-suse.repo \
-                              %{buildroot}%{CONF_DIR}/qmailtoaster-suse.repo
+%{__install} -p %{SOURCE2} %{buildroot}%{CONF_DIR}/qmailtoaster-nodist.repo
+%{__install} -p %{SOURCE3} %{buildroot}%{CONF_DIR}/qmailtoaster-centos.repo
+%{__install} -p %{SOURCE4} %{buildroot}%{CONF_DIR}/qmailtoaster-fedora.repo
+%{__install} -p %{SOURCE5} %{buildroot}%{CONF_DIR}/qmailtoaster-mandriva.repo
+%{__install} -p %{SOURCE6} %{buildroot}%{CONF_DIR}/qmailtoaster-suse.repo
 
 %{__install} -p %{_sourcedir}/RPM_GPG_KEY-qmailtoaster \
                               %{buildroot}%{CONF_DIR}/RPM_GPG_KEY-qmailtoaster
 %{__install} -p %{_sourcedir}/RPM_GPG_KEY-shubes \
                               %{buildroot}%{CONF_DIR}/RPM_GPG_KEY-shubes
 
-%{__ln_s} ../..%{BIN_DIR}/qt-whatami          %{buildroot}%{BIN_LINK}/.
-%{__ln_s} ../..%{CONF_DIR}/qmailtoaster.repo  %{buildroot}%{REPO_LINK}/.
+%{__ln_s} ../..%{BIN_DIR}/qt-whatami                 %{buildroot}%{BIN_LINK}/.
+%{__ln_s} ../..%{CONF_DIR}/qmailtoaster-nodist.repo  %{buildroot}%{REPO_LINK}/.
 touch   %{buildroot}%{REPO_LINK}/qmailtoaster-dist.repo
 
 #-------------------------------------------------------------------------------
@@ -102,7 +96,7 @@ touch   %{buildroot}%{REPO_LINK}/qmailtoaster-dist.repo
 
 # symlinks
 %{BIN_LINK}/*
-%{REPO_LINK}/qmailtoaster.repo
+%{REPO_LINK}/qmailtoaster-nodist.repo
 %ghost %{REPO_LINK}/qmailtoaster-dist.repo
 
 #-------------------------------------------------------------------------------
@@ -146,6 +140,9 @@ grep "$co_parm" $pcfile >/dev/null 2>&1 || \
 #-------------------------------------------------------------------------------
 %changelog
 #-------------------------------------------------------------------------------
+* Fri Dec 27 2013 Eric Shubert <eric@datamatters.us> - 2.0-2.qt
+- changed qmailtoaster.repo to qmailtoaster-nodist.repo
+- changed to use %{SOURCEn} names
 * Sat Dec 07 2013 Eric Shubert <eric@datamatters.us> - 2.0-1.qt
 * removed qt-install-repoforge from %post, as that won't work (recursive rpm)
 - changed symlink name and made it a ghost
