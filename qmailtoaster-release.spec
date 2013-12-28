@@ -5,7 +5,7 @@
 Name:      qmailtoaster-release
 Summary:   QMailToaster RPM repository configuration
 Version:   2.0
-Release:   2%{?dist}
+Release:   1%{?dist}
 License:   GPL
 Group:     System Environment/Base
 URL:       http://qmailtoaster.com/
@@ -140,7 +140,7 @@ grep "$co_parm" $pcfile >/dev/null 2>&1 || \
 #-------------------------------------------------------------------------------
 %changelog
 #-------------------------------------------------------------------------------
-* Fri Dec 27 2013 Eric Shubert <eric@datamatters.us> - 2.0-2.qt
+* Fri Dec 27 2013 Eric Shubert <eric@datamatters.us> - 2.0-1.qt
 - changed qmailtoaster.repo to qmailtoaster-nodist.repo
 - changed to use %{SOURCEn} names
 * Sat Dec 07 2013 Eric Shubert <eric@datamatters.us> - 2.0-1.qt
