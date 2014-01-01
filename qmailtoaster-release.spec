@@ -8,11 +8,9 @@ Version:   2.0
 Release:   1%{?dist}
 License:   GPL
 Group:     System Environment/Base
-URL:       http://qmailtoaster.com/
+Vendor:    QmailToaster
 Packager:  Eric Shubert <qmt-build@datamatters.us>
-
-Requires:  yum-priorities
-
+URL:       http://qmailtoaster.com/
 Source1:   qt-whatami
 Source2:   qmailtoaster-nodist.repo
 Source3:   qmailtoaster-centos.repo
@@ -21,7 +19,7 @@ Source5:   qmailtoaster-mandriva.repo
 Source6:   qmailtoaster-suse.repo
 Source7:   RPM_GPG_KEY-qmailtoaster
 Source8:   RPM_GPG_KEY-shubes
-
+Requires:  yum-priorities
 BuildArch: noarch
 BuildRoot: %{_topdir}/BUILDROOT/%{name}-%{version}-%{release}.%{_arch}
 
